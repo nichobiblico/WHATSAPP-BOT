@@ -4,11 +4,12 @@
  * o caminho em profile.avatarUrl (por exemplo: "nicole.jpg").
  * As opções aparecem em etapas; cada escolha revela a próxima mensagem.
  */
-const CHAT_CONFIG = {
+const MEXICO_CHAT_CONFIG = {
+  locale: 'es-MX',
   profile: {
     name: 'Nicole Yasmim',
     status: '',
-    avatarUrl: 'assets/nicole-profile.jpeg',
+    avatarUrl: '/assets/nicole-profile.jpeg',
     initials: 'NY'
   },
   conversation: [
@@ -67,6 +68,91 @@ const CHAT_CONFIG = {
   pauseBeforeReply: 750
 };
 
+const BRAZIL_CHAT_CONFIG = {
+  locale: 'pt-BR',
+  profile: {
+    name: 'Nicole Yasmim',
+    status: '',
+    avatarUrl: '/assets/nicole-profile.jpeg',
+    initials: 'NY'
+  },
+  conversation: [
+    { from: 'bot', text: 'Oi! Meu nome é Nicole e eu sou uma ruivinha sapeca. 😉' }
+  ],
+  options: [
+    {
+      title: 'Quero te conhecer melhor',
+      reply: 'Tenho um lado misterioso e algumas surpresas que quero te mostrar... Quer me conhecer um pouco mais? 😉',
+      nextOptions: [
+        {
+          title: 'Quero te conhecer mais',
+          reply: 'No meu cantinho privado você encontra 👇\n📸 Mais de 258 fotos exclusivas\n🎬 Lives exclusivas\n🎥 Mais de 68 vídeos\n\nTudo em um só lugar 😘\n\nQuer saber como funciona o acesso?',
+          nextOptions: [
+            {
+              title: 'Me conta como funciona',
+              reply: 'É simples: você escolhe por quanto tempo quer ter acesso e confirma pela plataforma. Tem plano de 1 mês, 3 meses ou 1 ano. ✨\n\nQual combina mais com você?',
+              nextOptions: [
+                {
+                  title: 'Plano de 1 mês',
+                  reply: 'Boa escolha! ✨ Com o plano de 1 mês você aproveita o conteúdo com calma. Quer garantir seu acesso?',
+                  nextOptions: [
+                    {
+                      title: 'Quero garantir meu acesso',
+                      finalAction: true,
+                      reply: 'Perfeito! Você escolheu o plano de 1 mês. 😘'
+                    }
+                  ]
+                },
+                {
+                  title: 'Plano de 3 meses',
+                  reply: 'Boa escolha! ✨ Com o plano de 3 meses você tem mais tempo para curtir o conteúdo e acompanhar as novidades. Quer garantir seu acesso?',
+                  nextOptions: [
+                    {
+                      title: 'Quero garantir meu acesso',
+                      finalAction: true,
+                      reply: 'Perfeito! Você escolheu o plano de 3 meses. 😘'
+                    }
+                  ]
+                },
+                {
+                  title: 'Plano de 1 ano',
+                  reply: 'Adorei sua escolha! 😘 Com o plano de 1 ano você tem bastante tempo para aproveitar tudo. Quer garantir seu acesso?',
+                  nextOptions: [
+                    {
+                      title: 'Quero garantir meu acesso',
+                      finalAction: true,
+                      reply: 'Perfeito! Você escolheu o plano de 1 ano. 😘'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  pauseBeforeReply: 750
+};
+
+const isBrazilPage = /^\/(?:pt|brasil)(?:\/|$)/i.test(window.location.pathname);
+const CHAT_CONFIG = isBrazilPage ? BRAZIL_CHAT_CONFIG : MEXICO_CHAT_CONFIG;
+
+document.documentElement.lang = CHAT_CONFIG.locale;
+document.title = isBrazilPage ? 'Conversa no WhatsApp' : 'Conversación en WhatsApp';
+document.querySelector('.chat-app').setAttribute('aria-label', isBrazilPage
+  ? 'Prévia de conversa no WhatsApp'
+  : 'Vista previa de conversación en WhatsApp');
+document.querySelector('#chat').setAttribute('aria-label', isBrazilPage
+  ? 'Mensagens da conversa'
+  : 'Mensajes de la conversación');
+document.querySelector('#typing').setAttribute('aria-label', isBrazilPage ? 'Digitando' : 'Escribiendo');
+document.querySelector('#today-label').textContent = isBrazilPage ? 'HOJE' : 'HOY';
+document.querySelector('#encryption-copy').textContent = isBrazilPage
+  ? 'As mensagens e as ligações são protegidas com criptografia de ponta a ponta. Só as pessoas que fazem parte desta conversa podem ler, ouvir e compartilhar esse conteúdo.'
+  : 'Los mensajes y las llamadas están protegidos con cifrado de extremo a extremo. Solo las personas que forman parte de esta conversación pueden leerlos, escucharlos o compartirlos.';
+document.querySelector('#encryption-more').textContent = isBrazilPage ? 'Saiba mais' : 'Más información';
+
 const chat = document.querySelector('#chat');
 const messages = document.querySelector('#messages');
 const typing = document.querySelector('#typing');
@@ -80,7 +166,7 @@ function scrollBottom() {
 }
 
 function timeNow() {
-  return new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit' }).format(new Date());
+  return new Intl.DateTimeFormat(CHAT_CONFIG.locale, { hour: '2-digit', minute: '2-digit' }).format(new Date());
 }
 
 function makeBubble(from) {
@@ -124,7 +210,7 @@ function addOptions(options) {
   if (!options?.length) return;
   const group = document.createElement('div');
   group.className = 'reply-options';
-  if (options.some(option => option.checkoutUrl)) group.classList.add('final-action');
+  if (options.some(option => option.checkoutUrl || option.finalAction)) group.classList.add('final-action');
   options.forEach(option => {
     const button = document.createElement('button');
     button.type = 'button';

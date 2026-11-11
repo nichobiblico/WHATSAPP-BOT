@@ -4,6 +4,7 @@ const path = require('node:path');
 
 const root = __dirname;
 const port = Number(process.env.PORT || 5173);
+const appRoutes = new Set(['/', '/mexico', '/pt', '/brasil']);
 const types = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -24,7 +25,9 @@ http.createServer((request, response) => {
     return;
   }
 
-  const file = path.resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
+  const route = pathname.replace(/\/+$/, '') || '/';
+  const requestedPath = appRoutes.has(route) ? '/index.html' : pathname;
+  const file = path.resolve(root, `.${requestedPath}`);
   if (file !== root && !file.startsWith(`${root}${path.sep}`)) {
     response.writeHead(403).end('Forbidden');
     return;
