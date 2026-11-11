@@ -65,7 +65,7 @@ const MEXICO_CHAT_CONFIG = {
       ]
     }
   ],
-  pauseBeforeReply: 750
+  pauseBeforeReply: 900
 };
 
 const BRAZIL_CHAT_CONFIG = {
@@ -135,7 +135,7 @@ const BRAZIL_CHAT_CONFIG = {
       ]
     }
   ],
-  pauseBeforeReply: 750
+  pauseBeforeReply: 900
 };
 
 const isBrazilPage = /^\/(?:pt|brasil)(?:\/|$)/i.test(window.location.pathname);
@@ -188,7 +188,11 @@ function makeBubble(from) {
 async function addBotMessage(text) {
   typing.hidden = false;
   scrollBottom();
-  await wait(CHAT_CONFIG.pauseBeforeReply);
+  const typingDelay = Math.min(
+    1900,
+    CHAT_CONFIG.pauseBeforeReply + Math.min(text.length * 3, 850) + Math.floor(Math.random() * 160)
+  );
+  await wait(typingDelay);
   typing.hidden = true;
   const { content } = makeBubble('bot');
   content.textContent = text;
