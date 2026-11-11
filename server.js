@@ -26,7 +26,7 @@ http.createServer((request, response) => {
   }
 
   const route = pathname.replace(/\/+$/, '') || '/';
-  const requestedPath = appRoutes.has(route) ? '/index.html' : pathname;
+  const requestedPath = appRoutes.has(route.toLowerCase()) ? '/index.html' : pathname;
   const file = path.resolve(root, `.${requestedPath}`);
   if (file !== root && !file.startsWith(`${root}${path.sep}`)) {
     response.writeHead(403).end('Forbidden');

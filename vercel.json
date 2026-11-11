@@ -4,7 +4,11 @@
     { "source": "/mexico/", "destination": "/index.html" },
     { "source": "/pt", "destination": "/index.html" },
     { "source": "/pt/", "destination": "/index.html" },
+    { "source": "/PT", "destination": "/index.html" },
+    { "source": "/PT/", "destination": "/index.html" },
     { "source": "/brasil", "destination": "/index.html" },
-    { "source": "/brasil/", "destination": "/index.html" }
+    { "source": "/brasil/", "destination": "/index.html" },
+    { "source": "/Brasil", "destination": "/index.html" },
+    { "source": "/Brasil/", "destination": "/index.html" }
   ]
 }

@@ -93,34 +93,37 @@ const BRAZIL_CHAT_CONFIG = {
               reply: 'É simples: você escolhe por quanto tempo quer ter acesso e confirma pela plataforma. Tem plano de 1 mês, 3 meses ou 1 ano. ✨\n\nQual combina mais com você?',
               nextOptions: [
                 {
-                  title: 'Plano de 1 mês',
-                  reply: 'Boa escolha! ✨ Com o plano de 1 mês você aproveita o conteúdo com calma. Quer garantir seu acesso?',
+                  title: 'Plano de 1 mês · R$ 9,90',
+                  reply: 'Boa escolha! ✨ O plano de 1 mês custa R$ 9,90. Quer garantir seu acesso?',
                   nextOptions: [
                     {
                       title: 'Quero garantir meu acesso',
                       finalAction: true,
+                      checkoutUrl: 'https://zuckpay.com.br/checkout/assinatura-de-1-mes',
                       reply: 'Perfeito! Você escolheu o plano de 1 mês. 😘'
                     }
                   ]
                 },
                 {
-                  title: 'Plano de 3 meses',
-                  reply: 'Boa escolha! ✨ Com o plano de 3 meses você tem mais tempo para curtir o conteúdo e acompanhar as novidades. Quer garantir seu acesso?',
+                  title: 'Plano de 3 meses · R$ 14,90',
+                  reply: 'Boa escolha! ✨ O plano de 3 meses custa R$ 14,90 e dá mais tempo para curtir o conteúdo e acompanhar as novidades. Quer garantir seu acesso?',
                   nextOptions: [
                     {
                       title: 'Quero garantir meu acesso',
                       finalAction: true,
+                      checkoutUrl: 'https://zuckpay.com.br/checkout/assinatura-de-3-meses',
                       reply: 'Perfeito! Você escolheu o plano de 3 meses. 😘'
                     }
                   ]
                 },
                 {
-                  title: 'Plano de 1 ano',
-                  reply: 'Adorei sua escolha! 😘 Com o plano de 1 ano você tem bastante tempo para aproveitar tudo. Quer garantir seu acesso?',
+                  title: 'Plano de 1 ano · R$ 17,90',
+                  reply: 'Adorei sua escolha! 😘 O plano de 1 ano custa R$ 17,90. Quer garantir seu acesso?',
                   nextOptions: [
                     {
                       title: 'Quero garantir meu acesso',
                       finalAction: true,
+                      checkoutUrl: 'https://zuckpay.com.br/checkout/acesso-de-1-ano',
                       reply: 'Perfeito! Você escolheu o plano de 1 ano. 😘'
                     }
                   ]
@@ -200,9 +203,10 @@ function addUserMessage(text) {
 function addUtmParameters(checkoutUrl) {
   const destination = new URL(checkoutUrl);
   const incoming = new URLSearchParams(window.location.search);
-  incoming.forEach((value, key) => {
-    if (/^utm_/i.test(key)) destination.searchParams.set(key, value);
-  });
+  const utmEntries = [...incoming.entries()].filter(([key]) => /^utm_/i.test(key));
+  const utmKeys = new Set(utmEntries.map(([key]) => key));
+  utmKeys.forEach(key => destination.searchParams.delete(key));
+  utmEntries.forEach(([key, value]) => destination.searchParams.append(key, value));
   return destination.toString();
 }
 

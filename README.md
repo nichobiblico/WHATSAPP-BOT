@@ -11,7 +11,8 @@ Use [http://localhost:5173](http://localhost:5173) com o servidor local ativo. P
 - `/mexico` abre a conversa em espanhol mexicano.
 - `/pt` e `/brasil` abrem a versão em português do Brasil.
 - A raiz `/` continua abrindo a versão mexicana.
-- Os checkouts da versão brasileira ficam sem link até você fornecer os destinos de pagamento do Brasil.
+- Os planos brasileiros usam os links da ZuckPay: 1 mês (R$ 9,90), 3 meses (R$ 14,90) e 1 ano (R$ 17,90).
+- Os parâmetros `utm_*` da URL da página são encaminhados ao checkout escolhido, incluindo valores repetidos de um mesmo parâmetro.
 
 ## Personalizar
 
