@@ -150,6 +150,7 @@ document.querySelector('#chat').setAttribute('aria-label', isBrazilPage
   ? 'Mensagens da conversa'
   : 'Mensajes de la conversación');
 document.querySelector('#typing').setAttribute('aria-label', isBrazilPage ? 'Digitando' : 'Escribiendo');
+document.querySelector('.verified-badge').setAttribute('aria-label', isBrazilPage ? 'Conta verificada' : 'Cuenta verificada');
 document.querySelector('#today-label').textContent = isBrazilPage ? 'HOJE' : 'HOY';
 document.querySelector('#encryption-copy').textContent = isBrazilPage
   ? 'As mensagens e as ligações são protegidas com criptografia de ponta a ponta. Só as pessoas que fazem parte desta conversa podem ler, ouvir e compartilhar esse conteúdo.'

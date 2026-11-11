@@ -11,7 +11,16 @@
   <main class="chat-app" aria-label="WhatsApp">
     <header class="chat-header">
       <div class="avatar" id="contact-avatar" aria-label="Foto de perfil"></div>
-      <div class="contact"><strong id="contact-name"></strong><span id="contact-status"></span></div>
+      <div class="contact">
+        <div class="contact-name-line">
+          <strong id="contact-name"></strong>
+          <svg class="verified-badge" viewBox="0 0 24 24" role="img" aria-label="Cuenta verificada">
+            <path fill="#3897f0" d="m12 1.5 2.1 1.2 2.5-.2 1.2 2.3 2.3 1.2-.2 2.5 1.2 2.1-1.2 2.1.2 2.5-2.3 1.2-1.2 2.3-2.5-.2-2.1 1.2-2.1-1.2-2.5.2-1.2-2.3-2.3-1.2.2-2.5L3 12l1.2-2.1-.2-2.5 2.3-1.2 1.2-2.3 2.5.2z"/>
+            <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8.2 12.1 2.4 2.4 5.2-5.2"/>
+          </svg>
+        </div>
+        <span id="contact-status"></span>
+      </div>
     </header>
     <section class="chat" id="chat" aria-label="WhatsApp chat">
       <div class="today" id="today-label">HOY</div>
