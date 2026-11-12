@@ -142,10 +142,10 @@ const isBrazilPage = /^\/(?:pt|brasil)(?:\/|$)/i.test(window.location.pathname);
 const CHAT_CONFIG = isBrazilPage ? BRAZIL_CHAT_CONFIG : MEXICO_CHAT_CONFIG;
 
 document.documentElement.lang = CHAT_CONFIG.locale;
-document.title = isBrazilPage ? 'Conversa no WhatsApp' : 'Conversación en WhatsApp';
+document.title = isBrazilPage ? 'Conversa com Nicole' : 'Conversación con Nicole';
 document.querySelector('.chat-app').setAttribute('aria-label', isBrazilPage
-  ? 'Prévia de conversa no WhatsApp'
-  : 'Vista previa de conversación en WhatsApp');
+  ? 'Prévia de conversa'
+  : 'Vista previa de conversación');
 document.querySelector('#chat').setAttribute('aria-label', isBrazilPage
   ? 'Mensagens da conversa'
   : 'Mensajes de la conversación');

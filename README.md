@@ -1,6 +1,6 @@
-# Prévia mobile de conversa no WhatsApp
+# Prévia mobile de conversa
 
-Prévia vertical em estilo WhatsApp. Em telas grandes, fica centralizada na proporção de um celular; em celulares, ocupa a tela inteira sem moldura.
+Prévia vertical de uma conversa. Em telas grandes, fica centralizada na proporção de um celular; em celulares, ocupa a tela inteira sem moldura.
 
 ## Abrir
 
